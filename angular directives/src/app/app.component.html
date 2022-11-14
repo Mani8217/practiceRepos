@@ -1,0 +1,110 @@
+
+ <div class="container">
+  <h2>Directiva *ngFor - Todos los alumnos </h2>
+  <ul class="list-group list-group-flush">
+       <li class="list-group-item" *ngFor="let alum of alumnos; index as i">
+         {{i+1}}.-{{alum.nombre}} {{alum.apellidos}} ✅
+       </li>
+  </ul>
+<hr>
+<h2>Directiva *ngIf - Solo los No respidores</h2>
+<ul class="list-group list-group-flush">
+  <ng-container *ngFor="let alum of alumnos">
+  <li class="list-group-item" *ngIf="!alum.repetidor">
+    {{alum.nombre}} {{alum.apellidos}}
+  </li>
+</ng-container>
+
+</ul>
+<hr>
+<h2>All Of the students</h2>
+<table class="table table-striped table-success table-hover" >
+  <thead>
+    <tr class="table-active">
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Puans</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let alum of alumnos">
+      <td>{{alum.nombre}}</td>
+      <td>{{alum.apellidos}}</td>
+      <td>{{alum.nota}}</td>
+    </tr>
+  </tbody>
+
+</table>
+
+<table class="table table-warning">
+  <thead>
+    <tr class="table-active">
+      <th>Name</th>
+      <th>Last Name</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let alum of alumnos">
+    <tr *ngIf="alum.nota > 5">
+      <td>{{alum.nombre}}</td>
+      <td>{{alum.apellidos}}</td>
+      <td>{{alum.nota}}</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<h2>students who passed the exam successfully - ngClass</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Last Name</th>
+      <th>Puans</th>
+    </tr>
+  </thead>
+<tbody *ngFor="let alum of alumnos">
+  <tr [ngClass]="alum.nota > 5 ? 'bg-success' : 'bg-danger' ">
+    <td>{{alum.nombre}}</td>
+    <td>{{alum.apellidos}}</td>
+    <td>{{alum.nota}}</td>
+  </tr>
+</tbody>
+</table>
+<hr>
+<h2>Students who passed the exam successfully - method : ngStyle</h2>
+<table class="table table-black">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Last Name</th>
+      <th>Puans</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let alum of alumnos">
+    <tr [ngStyle]="{color : alum.nota >= 5 && alum.repetidor==true ? 'green' :'red' }">
+      <td>{{alum.nombre}}</td>
+      <td>{{alum.apellidos}}</td>
+      <td>{{alum.nota}}</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<h2>ngSwitch and ngSwitchCase Directives to check the students's positions</h2>
+
+
+<ul>
+<li *ngFor="let alum of alumnos" [ngSwitch]="alum.valoracion">
+ <div *ngSwitchCase="'alta'" [ngStyle]="{color:'green'}">
+  {{alum.nombre}} {{alum.apellidos}}: {{alum.valoracion}}
+ </div>
+ <div *ngSwitchCase="'media'" [ngStyle]="{color : 'orange'}">
+  {{alum.nombre}} {{alum.apellidos}}: {{alum.valoracion}}
+ </div>
+ <div *ngSwitchCase="'baja'" [ngClass]="'bg-danger'">
+  {{alum.nombre}} {{alum.apellidos}}: {{alum.valoracion}}
+ </div>
+</li>
+</ul>
+
+ </div>
